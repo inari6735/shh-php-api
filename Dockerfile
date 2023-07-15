@@ -69,6 +69,11 @@ ENV APP_MODE=development
 
 COPY --link docker/php/config/development/php.ini /usr/local/etc/php/php.ini-development
 
+RUN set -eux; \
+	install-php-extensions \
+    	xdebug \
+    ;
+
 FROM nginx:stable-bullseye AS app_nginx
 
 WORKDIR /var/www
