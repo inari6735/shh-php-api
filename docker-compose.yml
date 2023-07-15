@@ -1,0 +1,38 @@
+version: "3.4"
+
+services:
+  php:
+    build:
+      context: .
+      target: app_php-production
+    restart: unless-stopped
+    volumes:
+      - ./docker/php/config/production/php.ini:/usr/local/etc/php/php.ini-production:ro
+      - ./docker/php/config/development/php.ini:/usr/local/etc/php/php.ini-development:ro
+      - ./docker/php/php-fpm/php-fpm.d/process-pool.conf:/usr/local/etc/php-fpm.d/process-pool.conf:ro
+      - ./docker/php/php-fpm/php-fpm.conf:/usr/local/etc/php-fpm.conf:ro
+#      - ./php/logs/:/var/log/
+    networks:
+      - webapp
+
+  nginx:
+    build:
+      context: .
+      target: app_nginx
+    ports:
+      - "${NGINX_HTTP_PORT:-80}:80"
+    depends_on:
+      - php
+    environment:
+      NGINX_SERVER_NAME: ${NGINX_SERVER_NAME:-localhost}
+    volumes:
+      - ./nginx/var/cache/nginx:/var/cache/nginx
+      - ./nginx/var/cache/nginx-pid:/var/run
+      - ./nginx/var/log:/var/log/nginx/
+      - ./docker/nginx/templates:/etc/nginx/templates
+    networks:
+      - webapp
+
+networks:
+  webapp:
+    driver: bridge

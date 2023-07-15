@@ -1,0 +1,27 @@
+server {
+    listen 0.0.0.0:80;
+    server_name ${NGINX_SERVER_NAME};
+
+    root /var/www/public;
+    index index.php index.html;
+
+    access_log /var/log/nginx/access.log;
+    error_log  /var/log/nginx/error.log;
+
+    # każdy request trafia tutaj następnie przekierowany jest do sekcji niżej
+    location / {
+        try_files $uri /index.php$is_args$args;
+    }
+    # przekierowany request trafia do tej sekcji
+    location ~ ^/index\.php(/|$) {
+        fastcgi_split_path_info ^(.+\.php)(/.+)$;
+
+        fastcgi_pass php:9000;
+        fastcgi_index index.php;
+
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME /srv/app/public$fastcgi_script_name;
+        # dzięki internal ta sekcja jest dostępna tylko dla serwera nginx
+        internal;
+    }
+}

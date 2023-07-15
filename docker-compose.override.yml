@@ -1,0 +1,14 @@
+version: "3.4"
+
+services:
+  php:
+    build:
+      target: app_php-development
+    volumes:
+      - ./application/:/srv/app
+    extra_hosts:
+      - host.docker.internal:host-gateway
+
+  nginx:
+    volumes:
+      - ./application/public:/var/www/public:ro
