@@ -1,0 +1,11 @@
+{
+    "name": "inari/php-nginx-docker",
+    "autoload": {
+        "psr-4": {
+            "Inari\\PhpNginxDocker\\": "src/"
+        }
+    },
+    "require": {
+        "php": ">=8.2.8"
+    }
+}
