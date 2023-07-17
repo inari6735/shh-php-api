@@ -28,13 +28,13 @@ RUN set -eux; \
       zip \
     ;
 
-COPY --link application/preload.php /srv/app/preload.
+COPY --link application/preload.php /srv/app/preload.php
 
 COPY --link docker/php/config/production/php.ini /usr/local/etc/php/php.ini-production
 
 COPY --link docker/php/php-fpm/php-fpm.d/process-pool.conf /usr/local/etc/php-fpm.d/process-pool.conf
 COPY --link docker/php/php-fpm/php-fpm.conf /usr/local/etc/php-fpm.conf
-RUN touch /var/log/fpm-php.www.log && chmod 666 /var/log/fpm-php.www.log
+RUN touch /var/log/fpm-php.www.log && chown www-data:www-data /var/log/fpm-php.www.log && chmod 666 /var/log/fpm-php.www.log
 
 COPY --link docker/php/scripts/entrypoint.sh /usr/local/bin/docker-entrypoint
 RUN chmod +x /usr/local/bin/docker-entrypoint
@@ -55,7 +55,7 @@ COPY --link ./application ./
 
 RUN set -eux; \
     if [ -f composer.json ]; then \
-		composer dump-autoload --classmap-authoritative --no-dev; \
+		composer dump-autoload --optimize --classmap-authoritative --no-dev; \
     fi
 
 ENTRYPOINT ["docker-entrypoint"]
