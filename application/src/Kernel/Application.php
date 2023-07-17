@@ -36,5 +36,10 @@ class Application
         if (empty($routeParams)) {
             Response::notFound();
         }
+
+        $controller = $this->container->get($routeParams['controller']);
+        $function = $routeParams['function'];
+
+        $controller->$function();
     }
 }
