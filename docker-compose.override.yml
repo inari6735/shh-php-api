@@ -8,7 +8,34 @@ services:
       - ./application/:/srv/app
     extra_hosts:
       - host.docker.internal:host-gateway
+    networks:
+      - database
 
   nginx:
     volumes:
       - ./application/public:/var/www/public:ro
+
+  mysql:
+    image: mysql:8.0.33-debian
+    restart: unless-stopped
+    volumes:
+      - mysql_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    networks:
+      - database
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - "8080:8080"
+    networks:
+      - database
+
+volumes:
+  mysql_data:
+
+networks:
+  database:
+    driver: bridge
