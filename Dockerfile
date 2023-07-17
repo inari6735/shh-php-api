@@ -16,7 +16,7 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /srv/app
 
-# pobranie instalatora rozszerzeń dla PHP - https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions
+# pobranie instalatora rozszerzeń dla PHP - https://github.com/mlocati/docker-php-extension-installer
 # pobranie instalatora z oficjalnego obrazu dockera
 COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
 
@@ -26,6 +26,7 @@ RUN set -eux; \
       apcu \
       opcache \
       zip \
+      mysqli \
     ;
 
 COPY --link application/preload.php /srv/app/preload.php
