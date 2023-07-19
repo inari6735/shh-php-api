@@ -7,6 +7,9 @@
     },
     "require": {
         "php": ">=8.2.8",
-        "php-di/php-di": "^7.0"
+        "php-di/php-di": "^7.0",
+        "doctrine/orm": "^2.15",
+        "symfony/cache": "^6.3",
+        "firebase/php-jwt": "^6.8"
     }
 }
