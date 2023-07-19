@@ -8,7 +8,7 @@ use App\Config\Routes\Routes;
 use App\Kernel\Application;
 
 $app = new Application();
-$routes = new Routes();
-$app->router = $routes->registerRoutes($app->router);
+$app->router->registerRoutes();
+var_dump($app->router->routes);
 
 $app->execute();

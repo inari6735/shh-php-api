@@ -4,30 +4,23 @@ declare(strict_types=1);
 
 namespace App\Kernel;
 
+use App\Attributes\Route;
 use App\Component\Request;
+use App\Config\Controller\Controllers;
+use App\Entity\Enum\HTTPMethod;
 
 class Router
 {
     public array $routes = [];
-    public function get(
-        string $path,
-        string $controller,
-        string $function
-    ): void
-    {
-        $this->routes['GET'][$path] = [
-            'controller' => $controller,
-            'function' => $function
-        ];
-    }
 
-    public function post(
+    public function registerRoute(
         string $path,
+        HTTPMethod $method,
         string $controller,
         string $function
     ): void
     {
-        $this->routes['POST'][$path] = [
+        $this->routes[$method->value][$path] = [
             'controller' => $controller,
             'function' => $function
         ];
@@ -41,5 +34,33 @@ class Router
         $path = $request->getPath();
 
         return $this->routes[$method][$path] ?? [];
+    }
+
+    public function registerRoutes(): void
+    {
+        $controllers = Controllers::getControllers();
+
+        foreach ($controllers as $controller) {
+            $reflectionController = new \ReflectionClass($controller);
+            $methods = $reflectionController->getMethods();
+
+            foreach ($methods as $method) {
+                $attributes = $method->getAttributes(Route::class);
+
+                foreach ($attributes as $attribute) {
+                    /**
+                     * @return Route
+                     */
+                    $route = $attribute->newInstance();
+
+                    $this->registerRoute(
+                        path: $route->path,
+                        method: $route->method,
+                        controller: $controller,
+                        function: $method->getName()
+                    );
+                }
+            }
+        }
     }
 }
