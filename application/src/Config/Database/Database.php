@@ -39,7 +39,7 @@ class Database
         }
 
         $connection = DriverManager::getConnection([
-            'url' => 'mysqli://root:root@mysql:3306/test'
+            'url' => $_ENV['MYSQL_URL']
         ]);
 
         return new EntityManager($connection, $config);
