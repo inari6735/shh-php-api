@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace App\Kernel;
 
-use App\Kernel\Component\Response;
+use App\Component\Response;
 use DI\Container;
-use App\Kernel\Router;
 use DI\ContainerBuilder;
 
 class Application
@@ -23,7 +22,7 @@ class Application
     private function setContainer(): void
     {
         $containerBuilder = new ContainerBuilder();
-        $containerBuilder->addDefinitions(dirname(__DIR__) . '/Container/config.php');
+        $containerBuilder->addDefinitions(dirname(__DIR__) . '/Config/Container/config.php');
         $containerBuilder->useAttributes(true);
 
         $this->container = $containerBuilder->build();

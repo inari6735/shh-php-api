@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Kernel\Component;
+namespace App\Component;
 
 class Response
 {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Routes;
+namespace App\Config\Routes;
 
 use App\Http\Controller\HomeController;
 use App\Kernel\Router;

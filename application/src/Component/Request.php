@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Kernel\Component;
+namespace App\Component;
 
 class Request
 {

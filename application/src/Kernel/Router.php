@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Kernel;
 
-use App\Kernel\Component\Request;
+use App\Component\Request;
 
 class Router
 {
