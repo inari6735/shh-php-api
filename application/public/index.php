@@ -9,6 +9,5 @@ use App\Kernel\Application;
 
 $app = new Application();
 $app->router->registerRoutes();
-var_dump($app->router->routes);
 
 $app->execute();
