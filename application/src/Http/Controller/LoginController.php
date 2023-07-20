@@ -15,8 +15,25 @@ class LoginController
     #[Route(path: '/login', method: HTTPMethod::GET)]
     public function login(): void
     {
-        JsonWebToken::ALGORITHM;
-        $jwt = JsonWebToken::createToken();
-        echo $jwt;
+        $data = [];
+
+        $time = new \DateTimeImmutable();
+        $issuedAt = $time->getTimestamp();
+        $expireAt = $time->modify('+7 days')->getTimestamp();
+
+        $jwt = JsonWebToken::createToken(
+            issuedAt: $issuedAt,
+            expireAt: $expireAt,
+            data: $data
+        );
+
+        setcookie(
+            name: 'jwt',
+            value: $jwt,
+            path: '/',
+            expires_or_options: $expireAt,
+            httponly: true,
+            secure: false,
+        );
     }
 }

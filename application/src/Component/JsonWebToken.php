@@ -11,6 +11,8 @@ class JsonWebToken
     const ALGORITHM = 'RS256';
 
     public static function createToken(
+        int $issuedAt,
+        int $expireAt,
         array $data = []
     ): string
     {
@@ -20,9 +22,6 @@ class JsonWebToken
             $_ENV['JWT_KEY_PASS']
         );
 
-        $time = new \DateTimeImmutable();
-        $issuedAt = $time->getTimestamp();
-        $expireAt = $time->modify('+7 days')->getTimestamp();
         $serverName = $_ENV['SERVER_NAME'];
 
         $payload = [
