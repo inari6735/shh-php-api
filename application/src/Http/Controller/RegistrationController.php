@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controller;
 
 use App\Attributes\Route;
+use App\Component\Response;
 use App\Entity\Enum\HTTPMethod;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
@@ -16,6 +17,8 @@ class RegistrationController
     ) {}
 
     #[Route(path: '/register', method: HTTPMethod::GET)]
-    public function register(): void {
+    public function register(): void
+    {
+        Response::respondCreated();
     }
 }
