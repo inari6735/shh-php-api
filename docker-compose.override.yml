@@ -17,13 +17,16 @@ services:
 
   mysql:
     image: mysql:8.0.33-debian
+    platform: linux/x86_64
     restart: unless-stopped
     ports:
       - "3307:3306"
     volumes:
       - mysql_data:/var/lib/mysql
+      - ./docker/mysql/:/docker-entrypoint-initdb.d
     environment:
       MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: shh-app
     networks:
       - database
 
