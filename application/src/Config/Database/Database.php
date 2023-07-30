@@ -8,6 +8,7 @@ use Doctrine\DBAL\DriverManager;
 use Doctrine\ORM\Configuration;
 use Doctrine\ORM\EntityManager;
 use Doctrine\Common\EventManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\Driver\AttributeDriver;
 use Gedmo\Timestampable\TimestampableListener;
 use Symfony\Component\Cache\Adapter\ArrayAdapter;
@@ -15,7 +16,7 @@ use Symfony\Component\Cache\Adapter\PhpFilesAdapter;
 
 class Database
 {
-    public function createEntityManager(): EntityManager
+    public function createEntityManager(): EntityManagerInterface
     {
         $entityFilesPaths = [__DIR__ . '/../../Entity'];
         $applicationMode = 'development';
@@ -49,7 +50,6 @@ class Database
         $eventManager = new EventManager();
 
         $timestampableListener = new TimestampableListener();
-        $timestampableListener->setAnnotationReader($driverImpl);
         $timestampableListener->setCacheItemPool($queryCache);
         $eventManager->addEventSubscriber($timestampableListener);
 
