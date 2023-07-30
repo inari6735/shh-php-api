@@ -3,5 +3,7 @@ CREATE TABLE users (
     email VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     tag VARCHAR(30) NOT NULL UNIQUE,
-    nick VARCHAR(30) NOT NULL
+    username VARCHAR(30) NOT NULL,
+    createdAt DATETIME NOT NULL,
+    updatedAt DATETIME NOT NULL
 )
