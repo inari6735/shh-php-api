@@ -33,7 +33,7 @@ class Application
         $routeParams = $this->router->getRequestMatchingRouteParams();
 
         if (empty($routeParams)) {
-            Response::notFound();
+            Response::failtNotFound();
         }
 
         $controller = $this->container->get($routeParams['controller']);

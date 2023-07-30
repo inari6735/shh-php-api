@@ -13,7 +13,7 @@ class Response
         'success' => true
     ];
 
-    public static function notFound(
+    public static function failtNotFound(
         string $message = 'Nie znaleziono zasobu'
     ): void
     {
