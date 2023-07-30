@@ -7,7 +7,9 @@ namespace App\Config\Database;
 use Doctrine\DBAL\DriverManager;
 use Doctrine\ORM\Configuration;
 use Doctrine\ORM\EntityManager;
+use Doctrine\Common\EventManager;
 use Doctrine\ORM\Mapping\Driver\AttributeDriver;
+use Gedmo\Timestampable\TimestampableListener;
 use Symfony\Component\Cache\Adapter\ArrayAdapter;
 use Symfony\Component\Cache\Adapter\PhpFilesAdapter;
 
@@ -44,6 +46,13 @@ class Database
             'url' => $_ENV['MYSQL_URL']
         ]);
 
-        return new EntityManager($connection, $config);
+        $eventManager = new EventManager();
+
+        $timestampableListener = new TimestampableListener();
+        $timestampableListener->setAnnotationReader($driverImpl);
+        $timestampableListener->setCacheItemPool($queryCache);
+        $eventManager->addEventSubscriber($timestampableListener);
+
+        return new EntityManager($connection, $config, $eventManager);
     }
 }
