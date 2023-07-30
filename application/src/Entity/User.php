@@ -18,12 +18,15 @@ class User
     #[ORM\GeneratedValue]
     private int|null $id = null;
 
-    #[ORM\Column(type: 'string')]
+    #[ORM\Column(type: 'string', length: 255, unique: true, nullable: false)]
     private string $email;
 
-    #[ORM\Column(type: 'string')]
+    #[ORM\Column(type: 'string', length: 255, nullable: false)]
     private string $password;
 
-    #[ORM\Column(type: 'string')]
+    #[ORM\Column(type: 'string', length: 30, unique: true, nullable: false)]
+    private string $tag;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: false)]
     private string $username;
 }
