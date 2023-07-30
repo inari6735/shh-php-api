@@ -4,6 +4,6 @@ CREATE TABLE users (
     password VARCHAR(255) NOT NULL,
     tag VARCHAR(30) NOT NULL UNIQUE,
     username VARCHAR(30) NOT NULL,
-    createdAt DATETIME NOT NULL,
-    updatedAt DATETIME NOT NULL
+    createdAt DATETIME DEFAULT NULL,
+    updatedAt DATETIME DEFAULT NULL
 )
