@@ -15,4 +15,11 @@ class Request
     {
         return $_SERVER['REQUEST_METHOD'];
     }
+
+    public function getBody(): array
+    {
+        $jsonBody = file_get_contents('php://input');
+
+        return json_decode($jsonBody, true) ?? [];
+    }
 }

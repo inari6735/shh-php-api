@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace App\Http\Service\PasswordValidatorService;
 
+use App\Entity\Interfaces\PasswordRequirementInterface;
+use App\Entity\Interfaces\ValidatorInterface;
 use App\Http\Exception\PasswordValidationException;
-use App\Http\Service\PasswordValidatorService\PasswordRequirements\PasswordRequirementInterface;
 
-class PasswordValidator implements PasswordValidatorInterface
+class PasswordValidator implements ValidatorInterface
 {
     public function __construct(
         /**
@@ -20,7 +21,7 @@ class PasswordValidator implements PasswordValidatorInterface
     /**
      * @throws PasswordValidationException
      */
-    public function validate(string $password): bool
+    public function validate(string $validationString): bool
     {
         /**
          * @var array<PasswordRequirementInterface>
@@ -29,12 +30,12 @@ class PasswordValidator implements PasswordValidatorInterface
         $validationErrors = [];
 
         foreach($validators as $validator) {
-            if (!$validator->validate($password)) {
+            if (!$validator->validate($validationString)) {
                 $validationErrors[] = $validator->getErrorMessage();
             }
         }
 
-        if (empty($validationMessages)) {
+        if (!empty($validationErrors)) {
             throw new PasswordValidationException(
                 validationErrors: $validationErrors
             );

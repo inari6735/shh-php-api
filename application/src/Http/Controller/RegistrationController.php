@@ -8,9 +8,11 @@ use App\Attributes\Route;
 use App\Component\Request;
 use App\Component\Response;
 use App\Entity\Enum\HTTPMethod;
-use App\Entity\User;
-use App\Http\Exception\PasswordValidationException;
-use App\Http\Service\PasswordValidatorService\PasswordValidatorInterface;
+use App\Entity\Interfaces\ExceptionErrorsInterface;
+use App\Http\Service\EmailAvailabilityService\EmailAvailabilityChecker;
+use App\Http\Service\EmailValidatorService\EmailValidator;
+use App\Http\Service\PasswordValidatorService\PasswordValidator;
+use App\Http\Service\TagAvailabilityService\TagAvailabilityChecker;
 use DI\Attribute\Inject;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -23,15 +25,32 @@ class RegistrationController
     #[Inject]
     #[Route(path: '/register', method: HTTPMethod::POST)]
     public function register(
-        Request $request,
-        PasswordValidatorInterface $passwordValidator,
+        Request                  $request,
+        EmailAvailabilityChecker $emailAvailability,
+        TagAvailabilityChecker   $tagAvailability,
+        EmailValidator           $emailValidator,
+        PasswordValidator        $passwordValidator
     ): void
     {
         try {
-            $passwordValidator->validate('password');
+            $requestData = $request->getBody();
+
+            $email = $requestData['email'];
+            $password = $requestData['password'];
+            $tag = $requestData['tag'];
+            $username = $requestData['username'];
+
+            $emailAvailability->check($email);
+            $tagAvailability->check($tag);
+
+            $emailValidator->validate($email);
+            $passwordValidator->validate($password);
         }
-        catch (PasswordValidationException $e) {
-            Response::respondCreated(data: ['errors' => $e->validationErrors]);
+        catch (ExceptionErrorsInterface $e) {
+            Response::fail(
+                errors: $e->getErrors(),
+                message: $e->getMessage()
+            );
         }
 
         Response::respondCreated();

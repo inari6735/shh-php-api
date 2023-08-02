@@ -2,6 +2,8 @@
 
 namespace App\Http\Service\PasswordValidatorService\PasswordRequirements;
 
+use App\Entity\Interfaces\PasswordRequirementInterface;
+
 class LengthRequirement implements PasswordRequirementInterface
 {
     private string $errorMessage = 'Password should be at least 8 characters in length';

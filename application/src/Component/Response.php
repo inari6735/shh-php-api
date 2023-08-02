@@ -6,6 +6,7 @@ namespace App\Component;
 
 class Response
 {
+    private const HTTP_BAD_REQUEST = 400;
     private const NOT_FOUND_CODE = 404;
     private const CREATED_CODE = 201;
     private const NOT_ACCEPTABLE_CODE = 406;
@@ -15,6 +16,24 @@ class Response
         'message' => '',
         'success' => true
     ];
+
+    public static function fail(
+        array $errors = [],
+        string $message = 'Request failure'
+    ): void
+    {
+        http_response_code(Response::HTTP_BAD_REQUEST);
+        header('Content-Type: application/json; charset=utf-8');
+
+        Response::$responseData['data'] = [
+            'errors' => $errors
+        ];
+        Response::$responseData['success'] = false;
+        Response::$responseData['message'] = $message;
+
+        echo json_encode(Response::$responseData);
+        exit();
+    }
 
     public static function failtNotFound(
         string $message = 'Resource not found'

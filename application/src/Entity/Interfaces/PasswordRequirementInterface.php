@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Service\PasswordValidatorService\PasswordRequirements;
+declare(strict_types=1);
+
+namespace App\Entity\Interfaces;
 
 interface PasswordRequirementInterface
 {

@@ -3,16 +3,15 @@
 declare(strict_types=1);
 
 use App\Config\Database\Database;
-use App\Http\Service\PasswordValidatorService\PasswordValidator;
-use App\Http\Service\PasswordValidatorService\PasswordValidatorInterface;
-use Doctrine\ORM\EntityManagerInterface;
 use App\Http\Service\PasswordValidatorService\PasswordRequirements as RQ;
+use App\Http\Service\PasswordValidatorService\PasswordValidator;
+use Doctrine\ORM\EntityManagerInterface;
 
 return [
     EntityManagerInterface::class => function (Database $database) {
         return $database->createEntityManager();
     },
-    PasswordValidatorInterface::class => function () {
+    PasswordValidator::class => function () {
         $passwordValidator = new PasswordValidator();
 
         $passwordValidator->validators = [

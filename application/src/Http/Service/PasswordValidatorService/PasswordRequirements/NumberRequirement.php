@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Service\PasswordValidatorService\PasswordRequirements;
 
+use App\Entity\Interfaces\PasswordRequirementInterface;
+
 class NumberRequirement implements PasswordRequirementInterface
 {
     private string $errorMessage = 'Password should include at least one number';
