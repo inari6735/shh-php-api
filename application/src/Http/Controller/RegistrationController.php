@@ -32,26 +32,18 @@ class RegistrationController
         PasswordValidator        $passwordValidator
     ): void
     {
-        try {
-            $requestData = $request->getBody();
+        $requestData = $request->getBody();
 
-            $email = $requestData['email'];
-            $password = $requestData['password'];
-            $tag = $requestData['tag'];
-            $username = $requestData['username'];
+        $email = $requestData['email'];
+        $password = $requestData['password'];
+        $tag = $requestData['tag'];
+        $username = $requestData['username'];
 
-            $emailAvailability->check($email);
-            $tagAvailability->check($tag);
+        $emailAvailability->check($email);
+        $tagAvailability->check($tag);
 
-            $emailValidator->validate($email);
-            $passwordValidator->validate($password);
-        }
-        catch (ExceptionErrorsInterface $e) {
-            Response::fail(
-                errors: $e->getErrors(),
-                message: $e->getMessage()
-            );
-        }
+        $emailValidator->validate($email);
+        $passwordValidator->validate($password);
 
         Response::respondCreated();
     }

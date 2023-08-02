@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Kernel;
 
+use App\Component\ExceptionHandler;
 use App\Component\Response;
+use App\Entity\Interfaces\ExceptionErrorsInterface;
 use DI\Container;
 use DI\ContainerBuilder;
 
@@ -17,6 +19,13 @@ class Application
     {
         $this->router = new Router();
         $this->setContainer();
+        $this->setExceptionHandler();
+    }
+
+    private function setExceptionHandler(): void
+    {
+        $exceptionHandler = new ExceptionHandler();
+        set_exception_handler([$exceptionHandler, 'handle']);
     }
 
     private function setContainer(): void

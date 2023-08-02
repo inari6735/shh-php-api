@@ -6,10 +6,10 @@ namespace App\Component;
 
 class Response
 {
-    private const HTTP_BAD_REQUEST = 400;
-    private const NOT_FOUND_CODE = 404;
-    private const CREATED_CODE = 201;
-    private const NOT_ACCEPTABLE_CODE = 406;
+    public const HTTP_BAD_REQUEST = 400;
+    public const NOT_FOUND_CODE = 404;
+    public const CREATED_CODE = 201;
+    public const NOT_ACCEPTABLE_CODE = 406;
 
     private static array $responseData = [
         'data' => [],
@@ -19,10 +19,11 @@ class Response
 
     public static function fail(
         array $errors = [],
-        string $message = 'Request failure'
+        string $message = 'Request failure',
+        int $code = Response::HTTP_BAD_REQUEST
     ): void
     {
-        http_response_code(Response::HTTP_BAD_REQUEST);
+        http_response_code($code);
         header('Content-Type: application/json; charset=utf-8');
 
         Response::$responseData['data'] = [
