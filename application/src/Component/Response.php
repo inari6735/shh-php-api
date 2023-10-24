@@ -20,19 +20,19 @@ class Response
     public static function fail(
         array $errors = [],
         string $message = 'Request failure',
-        int $code = Response::HTTP_BAD_REQUEST
+        int $code = self::HTTP_BAD_REQUEST
     ): void
     {
         http_response_code($code);
         header('Content-Type: application/json; charset=utf-8');
 
-        Response::$responseData['data'] = [
+        self::$responseData['data'] = [
             'errors' => $errors
         ];
-        Response::$responseData['success'] = false;
-        Response::$responseData['message'] = $message;
+        self::$responseData['success'] = false;
+        self::$responseData['message'] = $message;
 
-        echo json_encode(Response::$responseData);
+        echo json_encode(self::$responseData);
         exit();
     }
 
@@ -55,13 +55,13 @@ class Response
         string $message = "Succesful created"
     ): void
     {
-        http_response_code(Response::CREATED_CODE);
+        http_response_code(self::CREATED_CODE);
         header('Content-Type: application/json; charset=utf-8');
 
-        Response::$responseData['message'] = $message;
-        Response::$responseData['data'] = $data;
+        self::$responseData['message'] = $message;
+        self::$responseData['data'] = $data;
 
-        echo json_encode(Response::$responseData);
+        echo json_encode(self::$responseData);
         exit();
     }
 
@@ -69,12 +69,12 @@ class Response
         string $message = "Invalid Content-Type. Only 'application/json' is accepted"
     ): void
     {
-        http_response_code(Response::NOT_ACCEPTABLE_CODE);
+        http_response_code(self::NOT_ACCEPTABLE_CODE);
         header('Content-Type: application/json; charset=utf-8');
 
-        Response::$responseData['message'] = $message;
+        self::$responseData['message'] = $message;
 
-        echo json_encode(Response::$responseData);
+        echo json_encode(self::$responseData);
         exit();
     }
 }
