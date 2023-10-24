@@ -17,9 +17,6 @@ class UserRepository extends EntityRepository
         parent::__construct($entityManager, $entityManager->getClassMetadata(User::class));
     }
 
-    /**
-     * @throws \Doctrine\ORM\NonUniqueResultException
-     */
     public function getUserByEmail(string $email): User | null
     {
         return $this->createQueryBuilder('u')
@@ -29,9 +26,6 @@ class UserRepository extends EntityRepository
             ->getOneOrNullResult();
     }
 
-    /**
-     * @throws \Doctrine\ORM\NonUniqueResultException
-     */
     public function getUserByTag(string $tag): User | null
     {
         return $this->createQueryBuilder('u')
@@ -39,5 +33,15 @@ class UserRepository extends EntityRepository
             ->setParameter('tag', $tag)
             ->getQuery()
             ->getOneOrNullResult();
+    }
+
+    public function save(User $user, bool $flush = true): void
+    {
+        $em = $this->getEntityManager();
+        $em->persist($user);
+
+        if ($flush) {
+            $em->flush();
+        }
     }
 }

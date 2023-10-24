@@ -25,7 +25,7 @@ class RegistrationController
     {
         $requestData = $request->getBody();
 
-        $this->registrationService->registerUserWithCredentials(
+        $this->registrationService->registerUserFromCredentials(
             email: $requestData['email'],
             password: $requestData['password'],
             tag: $requestData['tag'],

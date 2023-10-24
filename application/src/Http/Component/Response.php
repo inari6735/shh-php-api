@@ -40,13 +40,13 @@ class Response
         string $message = 'Resource not found'
     ): void
     {
-        http_response_code(Response::NOT_FOUND_CODE);
+        http_response_code(self::NOT_FOUND_CODE);
         header('Content-Type: application/json; charset=utf-8');
 
-        Response::$responseData['success'] = false;
-        Response::$responseData['message'] = $message;
+        self::$responseData['success'] = false;
+        self::$responseData['message'] = $message;
 
-        echo json_encode(Response::$responseData);
+        echo json_encode(self::$responseData);
         exit();
     }
 
