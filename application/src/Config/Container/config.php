@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
+use App\Component\Validator\PasswordValidator\PasswordValidator;
 use App\Config\Database\Database;
 use App\Http\Service\PasswordValidatorService\PasswordRequirements as RQ;
-use App\Http\Service\PasswordValidatorService\PasswordValidator;
 use Doctrine\ORM\EntityManagerInterface;
 
 return [
@@ -15,11 +15,11 @@ return [
         $passwordValidator = new PasswordValidator();
 
         $passwordValidator->validators = [
-            new RQ\LowercaseRequirement(),
-            new RQ\NumberRequirement(),
-            new RQ\SpecialCharsRequirement(),
-            new RQ\UppercaseRequirement(),
-            new RQ\LengthRequirement()
+            new \App\Component\Validator\PasswordValidator\PasswordRequirements\LowercaseRequirement(),
+            new \App\Component\Validator\PasswordValidator\PasswordRequirements\NumberRequirement(),
+            new \App\Component\Validator\PasswordValidator\PasswordRequirements\SpecialCharsRequirement(),
+            new \App\Component\Validator\PasswordValidator\PasswordRequirements\UppercaseRequirement(),
+            new \App\Component\Validator\PasswordValidator\PasswordRequirements\LengthRequirement()
         ];
 
         return $passwordValidator;

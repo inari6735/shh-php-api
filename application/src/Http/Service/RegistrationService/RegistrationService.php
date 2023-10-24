@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Http\Service\RegistrationService;
 
-use App\Http\Service\EmailAvailabilityService\EmailAvailabilityChecker;
-use App\Http\Service\EmailValidatorService\EmailValidator;
-use App\Http\Service\PasswordValidatorService\PasswordValidator;
-use App\Http\Service\TagAvailabilityService\TagAvailabilityChecker;
+use App\Component\Checker\EmailAvailabilityChecker;
+use App\Component\Checker\TagAvailabilityChecker;
+use App\Component\Validator\EmailValidator\EmailValidator;
+use App\Component\Validator\PasswordValidator\PasswordValidator;
 
 class RegistrationService
 {

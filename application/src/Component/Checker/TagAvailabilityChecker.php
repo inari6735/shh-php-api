@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Service\EmailAvailabilityService;
+namespace App\Component\Checker;
 
 use App\Entity\Interfaces\CheckerInterface;
-use App\Http\Exception\EmailAvailabilityException;
+use App\Http\Exception\TagAvailabilityException;
 use App\Repository\UserRepository;
 
-class EmailAvailabilityChecker implements CheckerInterface
+class TagAvailabilityChecker implements CheckerInterface
 {
-    private string $errorMessage = 'User with a given email already exists';
+    private string $errorMessage = 'User with a given tag already exists';
 
     public function __construct(
         private readonly UserRepository $userRepository
@@ -18,16 +18,16 @@ class EmailAvailabilityChecker implements CheckerInterface
     {}
 
     /**
-     * @throws EmailAvailabilityException
+     * @throws TagAvailabilityException
      */
     public function check(string $propertyString): bool
     {
-        $user = $this->userRepository->getUserByEmail($propertyString);
+        $user = $this->userRepository->getUserByTag($propertyString);
 
         if ($user) {
             $errors = [$this->errorMessage];
 
-            throw new EmailAvailabilityException(
+            throw new TagAvailabilityException(
                 errors: $errors
             );
         }
