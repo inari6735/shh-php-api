@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace App\Kernel;
 
-use App\Component\ExceptionHandler;
-use App\Component\Response;
-use App\Entity\Interfaces\ExceptionErrorsInterface;
+use App\Http\Component\ExceptionHandler;
+use App\Http\Component\Response;
 use DI\Container;
 use DI\ContainerBuilder;
 

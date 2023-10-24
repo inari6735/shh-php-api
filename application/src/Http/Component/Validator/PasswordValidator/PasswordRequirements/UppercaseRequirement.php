@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Component\Validator\PasswordValidator\PasswordRequirements;
+namespace App\Http\Component\Validator\PasswordValidator\PasswordRequirements;
 
 use App\Entity\Interfaces\PasswordRequirementInterface;
 

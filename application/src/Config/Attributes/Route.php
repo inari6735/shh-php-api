@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Attributes;
+namespace App\Config\Attributes;
 
 use App\Entity\Enum\HTTPMethod;
 use Attribute;

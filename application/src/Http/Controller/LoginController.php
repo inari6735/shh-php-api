@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Http\Controller;
 
-use App\Attributes\Route;
-use App\Component\JsonWebToken;
+use App\Config\Attributes\Route;
 use App\Entity\Enum\HTTPMethod;
+use App\Http\Component\JsonWebToken;
 
 class LoginController
 {

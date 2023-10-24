@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Kernel;
 
-use App\Attributes\Route;
-use App\Component\Request;
+use App\Config\Attributes\Route;
 use App\Config\Controller\Controllers;
 use App\Entity\Enum\HTTPMethod;
+use App\Http\Component\Request;
 
 class Router
 {

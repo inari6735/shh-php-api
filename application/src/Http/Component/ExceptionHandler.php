@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Component;
+namespace App\Http\Component;
 
 use App\Entity\Interfaces\ExceptionErrorsInterface;
 use Exception;

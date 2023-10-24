@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Http\Controller;
 
-use App\Attributes\Route;
-use App\Component\Request;
-use App\Component\Response;
+use App\Config\Attributes\Route;
 use App\Entity\Enum\HTTPMethod;
-use App\Http\Service\RegistrationService\RegistrationService;
+use App\Http\Component\Request;
+use App\Http\Component\Response;
+use App\Http\Service\RegistrationService;
 use DI\Attribute\Inject;
 
 class RegistrationController

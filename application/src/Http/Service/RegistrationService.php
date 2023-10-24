@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Service\RegistrationService;
+namespace App\Http\Service;
 
-use App\Component\Checker\EmailAvailabilityChecker;
-use App\Component\Checker\TagAvailabilityChecker;
-use App\Component\Validator\EmailValidator\EmailValidator;
-use App\Component\Validator\PasswordValidator\PasswordValidator;
+use App\Http\Component\Checker\EmailAvailabilityChecker;
+use App\Http\Component\Checker\TagAvailabilityChecker;
+use App\Http\Component\Validator\EmailValidator\EmailValidator;
+use App\Http\Component\Validator\PasswordValidator\PasswordValidator;
 
 class RegistrationService
 {

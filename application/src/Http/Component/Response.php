@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Component;
+namespace App\Http\Component;
 
 class Response
 {

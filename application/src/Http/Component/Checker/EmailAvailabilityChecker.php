@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Component\Checker;
+namespace App\Http\Component\Checker;
 
 use App\Entity\Interfaces\CheckerInterface;
 use App\Http\Exception\EmailAvailabilityException;

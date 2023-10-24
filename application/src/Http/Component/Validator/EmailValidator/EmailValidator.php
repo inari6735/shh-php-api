@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Component\Validator\EmailValidator;
+namespace App\Http\Component\Validator\EmailValidator;
 
 use App\Entity\Interfaces\ValidatorInterface;
 use App\Http\Exception\EmailValidationException;

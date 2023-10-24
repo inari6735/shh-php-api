@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Exception;
 
-use App\Component\Response;
 use App\Entity\Interfaces\ExceptionErrorsInterface;
+use App\Http\Component\Response;
 use Exception;
 
 class PasswordValidationException extends Exception implements ExceptionErrorsInterface
