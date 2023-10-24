@@ -16,7 +16,7 @@ class JsonWebToken
         array $data = []
     ): string
     {
-        $privateKeyFile = dirname(__DIR__) . '/Config/JsonWebToken/private.pem';
+        $privateKeyFile = dirname(__DIR__, 2) . '/Config/JsonWebToken/private.pem';
         $privateKey = openssl_get_privatekey(
             file_get_contents($privateKeyFile),
             $_ENV['JWT_KEY_PASS']
