@@ -10,31 +10,31 @@ use Doctrine\ORM\Mapping as ORM;
 
 trait Timestampable
 {
-    #[ORM\Column(name: 'createdAt', nullable: true)]
-    #[Gedmo\Timestampable(on: 'create')]
+    #[ORM\Column(name: 'createdAt', type: 'datetime', nullable: true)]
     private DateTime $createdAt;
 
-    #[ORM\Column(name: 'updatedAt', nullable: true)]
-    #[Gedmo\Timestampable(on: 'update')]
+    #[ORM\Column(name: 'updatedAt', type: 'datetime', nullable: true)]
     private DateTime $updatedAt;
 
-    /**
-     * @param DateTime $createdAt
-     * @return Timestampable
-     */
-    public function setCreatedAt(DateTime $createdAt): Timestampable
+    public function setCreatedAt(DateTime $createdAt): self
     {
         $this->createdAt = $createdAt;
         return $this;
     }
 
-    /**
-     * @param DateTime $updatedAt
-     * @return Timestampable
-     */
-    public function setUpdatedAt(DateTime $updatedAt): Timestampable
+    public function getCreatedAt(): DateTime
+    {
+        return $this->createdAt;
+    }
+
+    public function setUpdatedAt(DateTime $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
         return $this;
+    }
+
+    public function getUpdatedAt(): DateTime
+    {
+        return $this->updatedAt;
     }
 }

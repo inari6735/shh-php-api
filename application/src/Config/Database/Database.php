@@ -49,10 +49,6 @@ class Database
 
         $eventManager = new EventManager();
 
-        $timestampableListener = new TimestampableListener();
-        $timestampableListener->setCacheItemPool($queryCache);
-        $eventManager->addEventSubscriber($timestampableListener);
-
         return new EntityManager($connection, $config, $eventManager);
     }
 }

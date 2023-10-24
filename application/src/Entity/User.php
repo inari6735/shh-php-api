@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Entity\Interfaces\TimestampableInterface;
 use App\Entity\Traits\Timestampable;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
 #[ORM\Table('users')]
-class User
+class User implements TimestampableInterface
 {
     use Timestampable;
 
@@ -30,41 +31,30 @@ class User
     #[ORM\Column(type: 'string', length: 255, nullable: false)]
     private string $username;
 
-    /**
-     * @param string $email
-     * @return User
-     */
-    public function setEmail(string $email): User
+    public function __construct() {
+        $this->createdAt = new \DateTime();
+        $this->updatedAt = new \DateTime();
+    }
+
+    public function setEmail(string $email): self
     {
         $this->email = $email;
         return $this;
     }
 
-    /**
-     * @param string $password
-     * @return User
-     */
-    public function setPassword(string $password): User
+    public function setPassword(string $password): self
     {
         $this->password = $password;
         return $this;
     }
 
-    /**
-     * @param string $tag
-     * @return User
-     */
-    public function setTag(string $tag): User
+    public function setTag(string $tag): self
     {
         $this->tag = $tag;
         return $this;
     }
 
-    /**
-     * @param string $username
-     * @return User
-     */
-    public function setUsername(string $username): User
+    public function setUsername(string $username): self
     {
         $this->username = $username;
         return $this;
