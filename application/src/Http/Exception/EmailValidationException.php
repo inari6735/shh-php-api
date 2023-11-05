@@ -11,7 +11,7 @@ use Exception;
 class EmailValidationException extends Exception implements ExceptionErrorsInterface
 {
     protected $message = 'Email validation error';
-    protected $code = Response::HTTP_BAD_REQUEST;
+    protected $code = Response::HTTP_OK;
 
     public function __construct(private readonly array $errors)
     {

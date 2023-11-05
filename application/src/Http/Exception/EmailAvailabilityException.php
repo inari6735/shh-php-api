@@ -11,7 +11,7 @@ use Exception;
 class EmailAvailabilityException extends Exception implements ExceptionErrorsInterface
 {
     protected $message = 'Email availability error';
-    protected $code = Response::HTTP_BAD_REQUEST;
+    protected $code = Response::HTTP_OK;
 
     public function __construct(private readonly array $errors)
     {

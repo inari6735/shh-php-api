@@ -8,7 +8,7 @@ use Firebase\JWT\JWT;
 
 class JsonWebToken
 {
-    const ALGORITHM = 'RS256';
+    private const ALGORITHM = 'RS256';
 
     public static function createToken(
         int $issuedAt,
@@ -17,7 +17,7 @@ class JsonWebToken
     ): string
     {
         $privateKeyFile = dirname(__DIR__, 2) . '/Config/JsonWebToken/private.pem';
-        $privateKey = openssl_get_privatekey(
+        $privateKey = openssl_pkey_get_private(
             file_get_contents($privateKeyFile),
             $_ENV['JWT_KEY_PASS']
         );

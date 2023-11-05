@@ -11,7 +11,7 @@ use Exception;
 class PasswordValidationException extends Exception implements ExceptionErrorsInterface
 {
     protected $message = 'Password validation error';
-    protected $code = Response::CREATED_CODE;
+    protected $code = Response::HTTP_OK;
 
     public function __construct(
         private readonly array $validationErrors

@@ -36,6 +36,11 @@ class User implements TimestampableInterface
         $this->updatedAt = new \DateTime();
     }
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
     public function setEmail(string $email): self
     {
         $this->email = $email;
@@ -58,5 +63,25 @@ class User implements TimestampableInterface
     {
         $this->username = $username;
         return $this;
+    }
+
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
+
+    public function getTag(): string
+    {
+        return $this->tag;
+    }
+
+    public function getUsername(): string
+    {
+        return $this->username;
     }
 }

@@ -7,33 +7,33 @@ namespace App\Http\Controller;
 use App\Config\Attributes\Route;
 use App\Entity\Enum\HTTPMethod;
 use App\Http\Component\JsonWebToken;
+use App\Http\Component\Request;
+use App\Http\Component\Response;
+use App\Http\Exception\UserCredentialsException;
+use App\Http\Exception\UserNotFoundException;
+use App\Http\Service\LoginService;
+use DI\Attribute\Inject;
 
-class LoginController
+readonly class LoginController
 {
-    public function __construct()
+    public function __construct(
+        private LoginService $loginService
+    )
     {}
-    #[Route(path: '/login', method: HTTPMethod::GET)]
-    public function login(): void
+
+    /**
+     * @throws UserNotFoundException
+     * @throws UserCredentialsException
+     */
+    #[Inject]
+    #[Route(path: '/login', method: HTTPMethod::POST)]
+    public function login(
+        Request $request
+    ): void
     {
-        $data = [];
+        $requestBody = $request->getBody();
+        $this->loginService->authenticateUser($requestBody['email'], $requestBody['password']);
 
-        $time = new \DateTimeImmutable();
-        $issuedAt = $time->getTimestamp();
-        $expireAt = $time->modify('+7 days')->getTimestamp();
-
-        $jwt = JsonWebToken::createToken(
-            issuedAt: $issuedAt,
-            expireAt: $expireAt,
-            data: $data
-        );
-
-        setcookie(
-            name: 'jwt',
-            value: $jwt,
-            path: '/',
-            expires_or_options: $expireAt,
-            httponly: true,
-            secure: false,
-        );
+        Response::respondSuccess();
     }
 }

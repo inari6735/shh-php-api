@@ -6,11 +6,10 @@ namespace App\Http\Exception;
 
 use App\Entity\Interfaces\ExceptionErrorsInterface;
 use App\Http\Component\Response;
-use Exception;
 
-class TagAvailabilityException extends Exception implements ExceptionErrorsInterface
+class UserNotFoundException extends \Exception implements ExceptionErrorsInterface
 {
-    protected $message = 'Tag availability error';
+    protected $message = 'User not found error';
     protected $code = Response::HTTP_OK;
 
     public function __construct(private readonly array $errors)

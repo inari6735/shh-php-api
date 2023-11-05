@@ -9,6 +9,8 @@ class Response
     public const HTTP_BAD_REQUEST = 400;
     public const NOT_FOUND_CODE = 404;
     public const CREATED_CODE = 201;
+
+    public const HTTP_OK = 200;
     public const NOT_ACCEPTABLE_CODE = 406;
 
     private static array $responseData = [
@@ -56,6 +58,21 @@ class Response
     ): void
     {
         http_response_code(self::CREATED_CODE);
+        header('Content-Type: application/json; charset=utf-8');
+
+        self::$responseData['message'] = $message;
+        self::$responseData['data'] = $data;
+
+        echo json_encode(self::$responseData);
+        exit();
+    }
+
+    public static function respondSuccess(
+        array $data = [],
+        string $message = "Success"
+    ): void
+    {
+        http_response_code(self::HTTP_OK);
         header('Content-Type: application/json; charset=utf-8');
 
         self::$responseData['message'] = $message;
