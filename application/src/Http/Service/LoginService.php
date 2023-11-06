@@ -43,13 +43,18 @@ readonly class LoginService
             data: $data
         );
 
+        $cookieOptions = [
+            'expires' => $expireAt,
+            'path' => '/',
+            'secure' => true,
+            'httponly' => true,
+            'samesite' => 'None'
+        ];
+
         setcookie(
             name: 'jwt',
             value: $jwt,
-            path: '/',
-            expires_or_options: $expireAt,
-            httponly: true,
-            secure: false,
+            expires_or_options: $cookieOptions
         );
     }
 
