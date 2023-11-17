@@ -75,6 +75,15 @@ RUN set -eux; \
     	xdebug \
     ;
 
+FROM node:21-bullseye AS app_websocket
+
+WORKDIR /srv/app
+
+COPY --link ./chatt/ ./
+
+CMD ["node", "index.js"]
+
+
 FROM nginx:stable-bullseye AS app_nginx
 
 WORKDIR /var/www

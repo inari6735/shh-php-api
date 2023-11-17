@@ -15,6 +15,18 @@ services:
     networks:
       - webapp
 
+  websocket:
+    build:
+      context: .
+      target: app_websocket
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./chatt:/srv/app
+    networks:
+      - webapp
+
   nginx:
     build:
       context: .
