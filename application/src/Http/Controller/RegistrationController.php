@@ -11,7 +11,7 @@ use App\Http\Component\Response;
 use App\Http\Service\RegistrationService;
 use DI\Attribute\Inject;
 
-class RegistrationController
+readonly class RegistrationController
 {
     public function __construct(
         public RegistrationService $registrationService
