@@ -1,0 +1,3 @@
+[submodule "shh-front-svelte"]
+	path = shh-front-svelte
+	url = git@github.com:inari6735/shh-front-svelte.git
