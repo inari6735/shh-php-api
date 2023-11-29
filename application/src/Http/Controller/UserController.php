@@ -11,7 +11,6 @@ use App\Http\Component\Response;
 use App\Http\Exception\JWTNotFoundException;
 use App\Http\Exception\UserNotFoundException;
 use App\Http\Service\UserService;
-use DI\Attribute\Inject;
 
 readonly class UserController
 {
@@ -37,11 +36,11 @@ readonly class UserController
      * @throws JWTNotFoundException
      */
     #[Route(path: '/user/search', method: HTTPMethod::POST)]
-    public function getSearchUsers(): string
+    public function getSearchedUsers(): string
     {
         $identifier = $this->request->getUserIdentifier();
         $queryString = $this->request->getQueryParam('queryString');
-        $data = $this->userService->getSearchUsers($queryString);
+        $data = $this->userService->getSearchedUsers($queryString);
 
         return Response::respondSuccess(data: $data);
     }

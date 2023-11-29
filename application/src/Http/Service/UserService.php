@@ -33,9 +33,9 @@ readonly class UserService
         return $data;
     }
 
-    public function getSearchUsers(string $queryString): array
+    public function getSearchedUsers(string $queryString): array
     {
-        $users = $this->userRepository->getUsersByQueryString($queryString);
+        $users = $this->userRepository->searchByQueryString($queryString);
 
         return $users;
     }

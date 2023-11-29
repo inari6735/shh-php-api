@@ -45,12 +45,18 @@ class UserRepository extends EntityRepository
         }
     }
 
-    public function getUsersByQueryString(string $queryString): array
+    public function searchByQueryString(string $queryString): array
     {
-        return $this->createQueryBuilder('u')
-            ->where('MATCH (tag, username) AGAINST (:queryString IN NATURAL LANGUAGE MODE)')
-            ->setParameter('queryString', $queryString)
-            ->getQuery()
-            ->getResult();
+        $conn = $this->getEntityManager()->getConnection();
+        $query = "
+            SELECT id, email, tag, username FROM users WHERE MATCH(tag, username) AGAINST (? IN NATURAL LANGUAGE MODE);
+        ";
+
+        $stmt = $conn->prepare($query);
+        $stmt->bindValue(1, $queryString);
+
+        $results = $stmt->executeQuery()->fetchAllAssociative();
+
+        return $results;
     }
 }
