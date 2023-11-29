@@ -44,4 +44,13 @@ class UserRepository extends EntityRepository
             $em->flush();
         }
     }
+
+    public function getUsersByQueryString(string $queryString): array
+    {
+        return $this->createQueryBuilder('u')
+            ->where('MATCH (tag, username) AGAINST (:queryString IN NATURAL LANGUAGE MODE)')
+            ->setParameter('queryString', $queryString)
+            ->getQuery()
+            ->getResult();
+    }
 }

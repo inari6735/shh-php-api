@@ -23,7 +23,7 @@ class Response
         array $errors = [],
         string $message = 'Request failure',
         int $code = self::HTTP_BAD_REQUEST
-    ): void
+    ): string
     {
         http_response_code($code);
         header('Content-Type: application/json; charset=utf-8');
@@ -34,13 +34,12 @@ class Response
         self::$responseData['success'] = false;
         self::$responseData['message'] = $message;
 
-        echo json_encode(self::$responseData);
-        exit();
+        return json_encode(self::$responseData);
     }
 
     public static function failtNotFound(
         string $message = 'Resource not found'
-    ): void
+    ): string
     {
         http_response_code(self::NOT_FOUND_CODE);
         header('Content-Type: application/json; charset=utf-8');
@@ -48,14 +47,13 @@ class Response
         self::$responseData['success'] = false;
         self::$responseData['message'] = $message;
 
-        echo json_encode(self::$responseData);
-        exit();
+        return json_encode(self::$responseData);
     }
 
     public static function respondCreated(
         array $data = [],
         string $message = "Succesful created"
-    ): void
+    ): string
     {
         http_response_code(self::CREATED_CODE);
         header('Content-Type: application/json; charset=utf-8');
@@ -63,14 +61,13 @@ class Response
         self::$responseData['message'] = $message;
         self::$responseData['data'] = $data;
 
-        echo json_encode(self::$responseData);
-        exit();
+        return json_encode(self::$responseData);
     }
 
     public static function respondSuccess(
         array $data = [],
         string $message = "Success"
-    ): void
+    ): string
     {
         http_response_code(self::HTTP_OK);
         header('Content-Type: application/json; charset=utf-8');
@@ -78,20 +75,18 @@ class Response
         self::$responseData['message'] = $message;
         self::$responseData['data'] = $data;
 
-        echo json_encode(self::$responseData);
-        exit();
+        return json_encode(self::$responseData);
     }
 
     public static function failtNotAcceptable(
         string $message = "Invalid Content-Type. Only 'application/json' is accepted"
-    ): void
+    ): string
     {
         http_response_code(self::NOT_ACCEPTABLE_CODE);
         header('Content-Type: application/json; charset=utf-8');
 
         self::$responseData['message'] = $message;
 
-        echo json_encode(self::$responseData);
-        exit();
+        return json_encode(self::$responseData);
     }
 }

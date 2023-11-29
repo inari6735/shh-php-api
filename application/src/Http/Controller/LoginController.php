@@ -29,11 +29,11 @@ readonly class LoginController
     #[Route(path: '/login', method: HTTPMethod::POST)]
     public function login(
         Request $request
-    ): void
+    ): string
     {
         $requestBody = $request->getBody();
         $this->loginService->authenticateUser($requestBody['email'], $requestBody['password']);
 
-        Response::respondSuccess();
+        return Response::respondSuccess();
     }
 }

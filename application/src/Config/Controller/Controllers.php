@@ -6,6 +6,7 @@ namespace App\Config\Controller;
 
 use App\Http\Controller\LoginController;
 use App\Http\Controller\RegistrationController;
+use App\Http\Controller\UserController;
 
 class Controllers
 {
@@ -13,7 +14,8 @@ class Controllers
     {
         return [
             LoginController::class,
-            RegistrationController::class
+            RegistrationController::class,
+            UserController::class
         ];
     }
 }

@@ -81,8 +81,9 @@ WORKDIR /srv/app
 
 COPY --link ./chatt/ ./
 
-CMD ["node", "index.js"]
+RUN npm install nodemon -g
 
+CMD ["nodemon", "index.js"]
 
 FROM nginx:stable-bullseye AS app_nginx
 

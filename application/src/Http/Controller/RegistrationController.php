@@ -21,7 +21,7 @@ readonly class RegistrationController
     #[Route(path: '/register', method: HTTPMethod::POST)]
     public function register(
         Request $request
-    ): void
+    ): string
     {
         $requestData = $request->getBody();
 
@@ -32,6 +32,6 @@ readonly class RegistrationController
             username: $requestData['username']
         );
 
-        Response::respondCreated();
+        return Response::respondCreated();
     }
 }

@@ -5,5 +5,6 @@ CREATE TABLE users (
     tag VARCHAR(30) NOT NULL UNIQUE,
     username VARCHAR(30) NOT NULL,
     createdAt DATETIME DEFAULT NULL,
-    updatedAt DATETIME DEFAULT NULL
-)
+    updatedAt DATETIME DEFAULT NULL,
+    FULLTEXT(tag, username)
+) ENGINE=InnoDB;

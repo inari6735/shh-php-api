@@ -9,7 +9,7 @@ class ExceptionHandler
 {
     public function handle(Exception $e): void
     {
-        $errors = [];
+        $errors = [$e->getMessage()];
         $message = 'Whoops, something went wrong';
         $code = Response::HTTP_BAD_REQUEST;
 
@@ -19,10 +19,11 @@ class ExceptionHandler
             $code = $e->getCode();
         }
 
-        Response::fail(
+        echo Response::fail(
             errors: $errors,
             message: $message,
             code: $code
         );
+        exit();
     }
 }

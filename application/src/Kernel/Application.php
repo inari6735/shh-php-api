@@ -8,6 +8,8 @@ use App\Http\Component\ExceptionHandler;
 use App\Http\Component\Response;
 use DI\Container;
 use DI\ContainerBuilder;
+use DI\DependencyException;
+use DI\NotFoundException;
 
 class Application
 {
@@ -47,6 +49,7 @@ class Application
         $controller = $this->container->get($routeParams['controller']);
         $function = $routeParams['function'];
 
-        $controller->$function();
+        echo $controller->$function();
+        exit();
     }
 }

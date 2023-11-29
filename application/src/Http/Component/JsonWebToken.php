@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Component;
 
 use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 
 class JsonWebToken
 {
@@ -40,5 +41,20 @@ class JsonWebToken
         );
 
         return $jwt;
+    }
+
+    private static function decodeToken(string $token): array
+    {
+        $publicKeyFile = dirname(__DIR__, 2) . '/Config/JsonWebToken/public.pem';
+        $publicKey = openssl_pkey_get_public(file_get_contents($publicKeyFile));
+
+        $decoded = JWT::decode($token, new Key($publicKey, self::ALGORITHM));
+
+        return (array) $decoded;
+    }
+
+    public static function validateToken(string $token): array
+    {
+        return self::decodeToken($token);
     }
 }
