@@ -17,7 +17,8 @@ use DI\Attribute\Inject;
 readonly class LoginController
 {
     public function __construct(
-        private LoginService $loginService
+        private LoginService $loginService,
+        private Request $request
     )
     {}
 
@@ -25,13 +26,14 @@ readonly class LoginController
      * @throws UserNotFoundException
      * @throws UserCredentialsException
      */
-    #[Inject]
     #[Route(path: '/login', method: HTTPMethod::POST)]
-    public function login(
-        Request $request
-    ): string
+    public function login(): string
     {
-        $requestBody = $request->getBody();
+        $requestBody = $this->request->getBody();
+
+        if (!isset($requestBody['email'], $requestBody['password'])) {
+            return Response::fail();
+        }
         $this->loginService->authenticateUser($requestBody['email'], $requestBody['password']);
 
         return Response::respondSuccess();

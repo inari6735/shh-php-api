@@ -18,6 +18,7 @@ class Application
 
     public function __construct()
     {
+        Response::setCorsPolicy();
         $this->router = new Router();
         $this->setContainer();
         $this->setExceptionHandler();
@@ -43,7 +44,8 @@ class Application
         $routeParams = $this->router->getRequestMatchingRouteParams();
 
         if (empty($routeParams)) {
-            Response::failtNotFound();
+            echo Response::failtNotFound();
+            exit();
         }
 
         $controller = $this->container->get($routeParams['controller']);

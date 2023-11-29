@@ -14,16 +14,14 @@ use DI\Attribute\Inject;
 readonly class RegistrationController
 {
     public function __construct(
-        public RegistrationService $registrationService
+        public RegistrationService $registrationService,
+        private Request $request
     ) {}
 
-    #[Inject]
     #[Route(path: '/register', method: HTTPMethod::POST)]
-    public function register(
-        Request $request
-    ): string
+    public function register(): string
     {
-        $requestData = $request->getBody();
+        $requestData = $this->request->getBody();
 
         $this->registrationService->registerUserFromCredentials(
             email: $requestData['email'],
