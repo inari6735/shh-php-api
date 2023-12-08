@@ -27,6 +27,7 @@ RUN set -eux; \
       opcache \
       zip \
       mysqli \
+      redis \
     ;
 
 COPY --link application/preload.php /srv/app/preload.php
