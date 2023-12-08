@@ -8,3 +8,9 @@ CREATE TABLE users (
     updatedAt DATETIME DEFAULT NULL,
     FULLTEXT(tag, username)
 ) ENGINE=InnoDB;
+
+CREATE TABLE chats (
+   first_user_id INT NOT NULL,
+   second_user_id INT NOT NULL,
+   chat_id VARCHAR(255) UNIQUE NOT NULL
+) ENGINE=InnoDB;

@@ -23,5 +23,8 @@ return [
         ];
 
         return $passwordValidator;
+    },
+    Redis::class => function () {
+        return (new \App\Config\Database\RedisConnector())->createConnection();
     }
 ];
