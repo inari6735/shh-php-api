@@ -1,5 +1,7 @@
 import { createServer } from "http";
 import { Server } from "socket.io";
+import {buildUrl, buildUrlWithParams} from "./lib/api.js";
+import { fetchPost } from "./lib/request.js"
 
 const httpServer = createServer();
 const io = new Server(httpServer, {
@@ -10,12 +12,13 @@ let usersList = [];
 
 io.on("connection", (socket) => {
     console.log('New connection:', socket.id);
-    socket.on('sendMessage', ({ from, to, message }) => {
-        const socketId = usersList.find(item => item.userId === to)?.socketId;
+    console.log(usersList)
+    socket.on('sendMessage', (data) => {
+        const socketId = usersList.find(item => item.userId === data.msg.to)?.socketId;
         const receiverSocket = io.sockets.sockets.get(socketId);
 
         if (socketId) {
-            receiverSocket.emit('receiveMessage', { from, to, message });
+            receiverSocket.emit('receiveMessage', data.msg);
         }
     });
 

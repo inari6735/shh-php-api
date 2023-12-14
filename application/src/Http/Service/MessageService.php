@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Http\Service;
 
-use App\Config\Database\RedisConnector;
 use App\Entity\Chat;
 use App\Repository\ChatRepository;
 use Ramsey\Uuid\Uuid;
@@ -17,10 +16,6 @@ readonly class MessageService
         private ChatRepository $chatRepository
     )
     {}
-
-//    public function persist($msg, $timestamp): void
-//    {
-//    }
 
     public function processChat(int $firstUserId, int $secondUserId): string
     {
@@ -51,5 +46,50 @@ readonly class MessageService
         $chat = $this->chatRepository->getChatIdByFirstUserId($firstUserId) ?? $this->chatRepository->getChatIdByFirstUserId($secondUserId);
 
         return $chat?->getChatId();
+    }
+
+    /**
+     * @throws \RedisException
+     */
+    public function persistMsg(array $data, ?string $chatId, int | null $ttl = null): void
+    {
+        $id = Uuid::uuid4()->toString();
+
+        foreach ($data as $key => $val) {
+            $this->redis->hSet($id, $key, $val);
+        }
+
+        $this->redis->rPush($chatId, $id);
+
+        if ($ttl) {
+            $this->redis->expire($id, $ttl);
+        }
+    }
+
+    /**
+     * @throws \RedisException
+     */
+    public function getMessages(string $chatId): array
+    {
+        $messages = [];
+        $msg = [
+            "from" => "",
+            "to" => "",
+            "message" => ""
+        ];
+        $msgKeys = $this->redis->lRange($chatId, 0, -1);
+
+        foreach ($msgKeys as $msgKey) {
+            foreach ($msg as $key => $value) {
+                $val = $this->redis->hGet($msgKey, $key);
+                if ($key === "to" || $key === "from") {
+                    $val = (int)$this->redis->hGet($msgKey, $key);
+                }
+                $msg[$key] = $val;
+            }
+            $messages[] = $msg;
+        }
+
+        return $messages;
     }
 }
