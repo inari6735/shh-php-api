@@ -33,11 +33,10 @@ services:
       target: app_nginx
     ports:
       - "${NGINX_HTTP_PORT:-80}:80"
-      - "81:81"
     depends_on:
       - php
     environment:
-      NGINX_SERVER_NAME: ${NGINX_SERVER_NAME:-ec2-52-59-161-128.eu-central-1.compute.amazonaws.com}
+      NGINX_SERVER_NAME: ${NGINX_SERVER_NAME:-172.31.27.161}
       NGINX_PUBLIC_IP: ${NGINX_PUBLIC_IP:-ec2-52-59-161-128.eu-central-1.compute.amazonaws.com}
     volumes:
       - ./nginx/var/cache/nginx:/var/cache/nginx
