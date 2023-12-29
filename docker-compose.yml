@@ -33,11 +33,12 @@ services:
       target: app_nginx
     ports:
       - "${NGINX_HTTP_PORT:-80}:80"
+      - "81:81"
     depends_on:
       - php
     environment:
-      NGINX_SERVER_NAME: ${NGINX_SERVER_NAME:-localhost}
-      NGINX_PUBLIC_IP: ${NGINX_PUBLIC_IP:-7bkmpnjijpo75wwcku6rga4g6maompsmlde4ysbblbdk645obctlymid.onion}
+      NGINX_SERVER_NAME: ${NGINX_SERVER_NAME:-ec2-52-59-161-128.eu-central-1.compute.amazonaws.com}
+      NGINX_PUBLIC_IP: ${NGINX_PUBLIC_IP:-ec2-52-59-161-128.eu-central-1.compute.amazonaws.com}
     volumes:
       - ./nginx/var/cache/nginx:/var/cache/nginx
       - ./nginx/var/cache/nginx-pid:/var/run
