@@ -33,6 +33,7 @@ services:
       target: app_nginx
     ports:
       - "${NGINX_HTTP_PORT:-80}:80"
+      - "81:81"
     depends_on:
       - php
     environment:
