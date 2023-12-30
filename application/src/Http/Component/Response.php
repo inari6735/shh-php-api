@@ -91,7 +91,7 @@ class Response
     }
 
     public static function setCorsPolicy(): void {
-        header("Access-Control-Allow-Origin: http://ec2-3-71-186-222.eu-central-1.compute.amazonaws.com:80");
+        header("Access-Control-Allow-Origin: http://ec2-3-71-186-222.eu-central-1.compute.amazonaws.com");
         header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
         header("Access-Control-Allow-Headers: Content-Type, Authorization, DNT, User-Agent, X-Requested-With, If-Modified-Since, Cache-Control, Range");
         header("Access-Control-Allow-Credentials: true");
