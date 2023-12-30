@@ -46,7 +46,6 @@ readonly class LoginService
         $cookieOptions = [
             'expires' => $expireAt,
             'path' => '/',
-            'domain' => 'ec2-52-59-161-128.eu-central-1.compute.amazonaws.com',
             'secure' => true,
             'httponly' => true,
             'samesite' => 'None'
