@@ -1,7 +1,7 @@
 server_names_hash_bucket_size 128;
 
 server {
-    listen 0.0.0.0:80;
+    listen 0.0.0.0:81;
     server_name ${NGINX_SERVER_NAME};
 
     root /var/www/public;
