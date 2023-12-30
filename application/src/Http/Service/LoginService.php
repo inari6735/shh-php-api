@@ -46,9 +46,7 @@ readonly class LoginService
         $cookieOptions = [
             'expires' => $expireAt,
             'path' => '/',
-            'secure' => true,
-            'httponly' => true,
-            'samesite' => 'None'
+            'httponly' => true
         ];
 
         setcookie(
