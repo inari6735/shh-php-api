@@ -48,6 +48,9 @@ readonly class UserController
     #[Route(path: '/ip-address', method: HTTPMethod::GET)]
     public function getIp(): string
     {
+        $ip1 = "";
+        $ip2 = "";
+
         if (isset($_SERVER['REMOTE_ADDR']) && !empty($_SERVER['REMOTE_ADDR'])) {
             $ip1 = $_SERVER['REMOTE_ADDR'];
         }
