@@ -61,8 +61,7 @@ readonly class UserController
 
         $data = [
             "REMOTE IP" => $ip1,
-            "FORWARED_IP" => $ip2,
-            "Serwer" => $_SERVER
+            "FORWARED_IP" => $ip2
         ];
 
         return Response::respondSuccess(data: $data);
