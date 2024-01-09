@@ -44,4 +44,23 @@ readonly class UserController
 
         return Response::respondSuccess(data: $data);
     }
+
+    #[Route(path: '/ip-address', method: HTTPMethod::GET)]
+    public function getIp(): string
+    {
+        if (isset($_SERVER['REMOTE_ADDR']) && !empty($_SERVER['REMOTE_ADDR'])) {
+            $ip1 = $_SERVER['REMOTE_ADDR'];
+        }
+
+        if (isset($_SERVER['HTTP_X_FORWARDED_FOR']) && !empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            $ip2 = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        }
+
+        $data = [
+            "REMOTE IP" => $ip1,
+            "FORWARED_IP" => $ip2
+        ];
+
+        return Response::respondSuccess(data: $data);
+    }
 }
